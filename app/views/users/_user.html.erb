@@ -1,7 +1,7 @@
 <li class="user">
- <div class="show-student-img">
-<img class="show-profile-img center-block center-xy" src="<%= @user.profile_img_link %>" alt="">
-</div>
+             <div class="show-student-img">
+              <img  style="height:auto; width:auto; max-width:70px; max-height:70px;" src="<%= user.profile_img_link %>" alt="">
+            </div>
   <%= link_to user.name, user %>
   <% if current_user.admin? && !current_user?(user) %>
   	| <%= link_to "delete", user, method: :delete,

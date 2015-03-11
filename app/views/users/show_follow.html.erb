@@ -2,7 +2,9 @@
 <div class="row">
   <aside class="col-md-4">
     <section class="user_info">
-      <%= gravatar_for @user %>
+            <div class="show-student-img">
+              <img  style="height:auto; width:auto; max-width:70px; max-height:70px;" src="<%= @user.profile_img_link %>" alt="">
+            </div>
       <h1><%= @user.name %></h1>
       <span><%= link_to "view my profile", @user %></span>
       <span><b>Microposts:</b> <%= @user.microposts.count %></span>
@@ -12,9 +14,9 @@
       <% if @users.any? %>
         <div class="user_avatars">
           <% @users.each do |user| %>
-          <div class="show-student-img">
-            <img class="show-profile-img center-block center-xy" src="<%= @user.profile_img_link %>" alt="">
-          </div>
+            <div class="show-student-img">
+              <img  style="height:auto; width:auto; max-width:70px; max-height:70px;" src="<%= user.profile_img_link %>" alt="">
+            </div>
 
           <% end %>
         </div>

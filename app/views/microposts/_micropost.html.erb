@@ -1,7 +1,7 @@
 <li id="micropost-<%= micropost.id %>">
-  <div class="show-student-img">
-<img class="show-profile-img center-block center-xy" src="<%= @user.profile_img_link %>" alt="">
-  </div>
+            <div class="show-student-img">
+              <img  style="height:auto; width:auto; max-width:70px; max-height:70px;" src="<%= micropost.user.profile_img_link %>" alt="">
+            </div>
   <span class="user"><%= link_to micropost.user.name, micropost.user %></span>
   <span class="content">
     <%= micropost.content %>

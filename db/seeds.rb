@@ -59,13 +59,14 @@ class StudentScraper
 end
 
 # Users     projectflatironemail.gmail.com  flatiron
-User.create!(name:  "Sample User",
-             email: "projectflatironemail@gmail.com",
-             password:              "flatiron",
-             password_confirmation: "flatiron",
-             admin:     true,
-             activated: true,
-             activated_at: Time.zone.now)
+# User.create!(name:  "Sample User",
+#              email: "projectflatironemail@gmail.com",
+#              password:              "flatiron",
+#              password_confirmation: "flatiron",
+#              admin:     true,
+#              activated: true,
+#              activated_at: Time.zone.now,
+#              profile_image: "app/assets/images/cookie_monster")
 
   # Let's instantiate and call. Make sure to read through the StudentScraper class.
   scraper = StudentScraper.new('http://ruby007.students.flatironschool.com')
@@ -81,7 +82,7 @@ end
 # Following relationships
 users = User.all
 user  = users.first
-following = users[2..50]
+following = users[2..15]
 followers = users[3..10]
 following.each { |followed| user.follow(followed) }
 

@@ -1,4 +1,6 @@
-<%= link_to gravatar_for(current_user, size: 50), current_user %>
+             <div class="show-student-img">
+              <img  style="height:auto; width:auto; max-width:100px; max-height:100px;" src="<%= @current_user.profile_img_link %>" alt="">
+            </div>
 <h1><%= current_user.name %></h1>
 <span><%= link_to "view my profile", current_user %></span>
 <span><%= pluralize(current_user.microposts.count, "micropost") %></span>
