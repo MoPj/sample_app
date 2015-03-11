@@ -38,6 +38,8 @@ ActiveRecord::Schema.define(version: 20150128151530) do
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
+    t.string   "profile_image"
+    t.string   "background_image"
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
     t.string   "password_digest"

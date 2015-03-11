@@ -1,6 +1,14 @@
 require 'open-uri'
 
+class StudentScraper
+  attr_reader :main_index_url
 
+  def initialize(main_index_url)
+    @main_index_url = main_index_url
+  end
+  def student_page_url(student)
+    "#{self.main_index_url}/#{student}"
+  end
 
   def parse_student_pages(students_array)
     students_array.collect do |student|
@@ -16,33 +24,39 @@ require 'open-uri'
              user.activated = true
              user.activated_at = Time.zone.now
              user.profile_image = parse_profile_image(student_page)
-
-      #student.background_image = parse_background_image(student_page)
+             user.background_image = parse_background_image(student_page)
 
 
       puts "Saving user ##{user.id} (#{user.name})..." if user.save
-      student
+      user
    end
+  end
+
+  def parse_profile_image(student_page)
+    student_page.css('.top-page-title div img')[0].attributes["src"].value
+  end
+
+  def parse_background_image(student_page)
+    student_page.css('style')[0].children[0].to_s[/\((.*?)\)/][1...-1]
+  end
+
+  def call
+    index_page = Nokogiri::HTML(open("#{self.main_index_url}"))
+    students_array = get_student_links(index_page)
+    students = parse_student_pages(students_array)
+  end
+
+  def get_student_links(index_page)
+    index_page.css('li.home-blog-post div.blog-thumb a').collect do |link|
+      link.attr('href')
+    end
   end
 end
 
-  def get_student_links(index_page)
-    index_page.css('li.home-blog-post div.blog-thumb a').collect do |link|
-      link.attr('href')
-    end
 
-    index_page = Nokogiri::HTML(open("http://ruby007.students.flatironschool.com"))
-    students_array = get_student_links(index_page)
-    students = parse_student_pages(students_array)
-
-
-  def get_student_links(index_page)
-    index_page.css('li.home-blog-post div.blog-thumb a').collect do |link|
-      link.attr('href')
-    end
-  end
-
-
+  # Let's instantiate and call. Make sure to read through the StudentScraper class.
+  scraper = StudentScraper.new('http://ruby007.students.flatironschool.com')
+  scraper.call
 
 
 # Users     projectflatironemail.gmail.com  flatiron
