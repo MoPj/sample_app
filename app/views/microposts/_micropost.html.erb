@@ -1,5 +1,7 @@
 <li id="micropost-<%= micropost.id %>">
-  <%= link_to gravatar_for(micropost.user, size: 50), micropost.user %>
+  <div class="show-student-img">
+<img class="show-profile-img center-block center-xy" src="<%= @user.profile_img_link %>" alt="">
+  </div>
   <span class="user"><%= link_to micropost.user.name, micropost.user %></span>
   <span class="content">
     <%= micropost.content %>

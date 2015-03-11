@@ -1,5 +1,7 @@
 <li class="user">
-  <%= gravatar_for user, size: 50 %>
+ <div class="show-student-img">
+<img class="show-profile-img center-block center-xy" src="<%= @user.profile_img_link %>" alt="">
+</div>
   <%= link_to user.name, user %>
   <% if current_user.admin? && !current_user?(user) %>
   	| <%= link_to "delete", user, method: :delete,
