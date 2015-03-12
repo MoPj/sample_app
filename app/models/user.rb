@@ -103,15 +103,16 @@ class User < ActiveRecord::Base
 
   def profile_img_link
     if self.profile_image != nil
-      "http://ruby007.students.flatironschool.com" + self.profile_image.gsub('..','')
+          "http://ruby007.students.flatironschool.com" + self.profile_image.gsub('..','')
     end
   end
 
-  def background_img_link
-    if self.background_image != nil
-      "http://ruby007.students.flatironschool.com" + self.background_image.gsub('..','')
-    end
-  end
+  # def background_img_link
+  #   if self.background_image != nil
+  #     binding.pry
+  #     "http://ruby007.students.flatironschool.com" + self.background_image.gsub('..','')
+  #   end
+  # end
 
   private
 

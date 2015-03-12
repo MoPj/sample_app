@@ -16,20 +16,30 @@ class StudentScraper
     students_array.collect do |student|
       student_page = Nokogiri::HTML(open(student_page_url(student)))
       name = student_page.css('h4.ib_main_header').text
-
+# make admin users
+      if student == "students/maureen_johnston.html" || student == "student/michael_tejada" 
       # This is using the find_or_create method defined by Sequel
       # http://sequel.rubyforge.org/rdoc/classes/Sequel/Model/ClassMethods.html#method-i-find_or_create
-      user = User.find_or_create_by(:name => name)
-
-             user.email = "projectflatironemail#{i}@gmail.com"
-             user.password = "flatiron"
-             user.password_confirmation = "flatiron"
-             user.activated = true
-             user.activated_at = Time.zone.now
-             user.profile_image = parse_profile_image(student_page)
-             user.background_image = parse_background_image(student_page)
-             i+=1
-
+               user = User.find_or_create_by(:name => name)
+               user.email = "projectflatironemail#{i}@gmail.com"
+               user.password = "flatiron"
+               user.password_confirmation = "flatiron"
+               user.admin =  true
+               user.activated = true
+               user.activated_at = Time.zone.now
+               user.profile_image = parse_profile_image(student_page)
+               user.background_image = parse_background_image(student_page)
+      else
+               user = User.find_or_create_by(:name => name)
+               user.email = "projectflatironemail#{i}@gmail.com"
+               user.password = "flatiron"
+               user.password_confirmation = "flatiron"
+               user.activated = true
+               user.activated_at = Time.zone.now
+               user.profile_image = parse_profile_image(student_page)
+               user.background_image = parse_background_image(student_page)
+      end
+      i+=1
       # puts "Saving user ##{user.id} (#{user.name})..." if user.save
       user.save
       user
@@ -58,15 +68,15 @@ class StudentScraper
   end
 end
 
-# Users     projectflatironemail.gmail.com  flatiron
-# User.create!(name:  "Sample User",
-#              email: "projectflatironemail@gmail.com",
-#              password:              "flatiron",
-#              password_confirmation: "flatiron",
-#              admin:     true,
-#              activated: true,
-#              activated_at: Time.zone.now,
-#              profile_image: "app/assets/images/cookie_monster")
+#Users     projectflatironemail.gmail.com  flatiron
+ # User.create!(name:  "Sample User",
+ #             email: "projectflatironemail@gmail.com",
+ #             password:              "flatiron",
+ #             password_confirmation: "flatiron",
+ #             admin:     true,
+ #             activated: true,
+ #             activated_at: Time.zone.now,
+ #             profile_image: "..app/assets/images/cookie_monster.jpg")
 
   # Let's instantiate and call. Make sure to read through the StudentScraper class.
   scraper = StudentScraper.new('http://ruby007.students.flatironschool.com')
